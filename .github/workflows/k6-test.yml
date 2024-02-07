@@ -6,13 +6,14 @@ on:
       - main
 
 jobs:
-  k6_test:
+  k6_local_test:
+    name: k6 local test run - docker example
     runs-on: ubuntu-latest
-    container:
-      image: loadimpact/k6:latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+    container: grafana/k6:latest
 
-      - name: Run K6 test
-        run: k6 run /github/workspace/test.js
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+
+      - name: Local k6 test
+        run: k6 run docker/test.js
