@@ -1,4 +1,4 @@
-name: K6 Performance Test
+name: K6 Performance Test in Docker
 
 on:
   push:
@@ -8,14 +8,11 @@ on:
 jobs:
   k6_test:
     runs-on: ubuntu-latest
+    container:
+      image: loadimpact/k6:latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Set up K6
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y k6
-
       - name: Run K6 test
-        run: k6 run ./test.js
+        run: k6 run /github/workspace/test.js
